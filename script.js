@@ -1,0 +1,8 @@
+const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
+setTimeout(()=>$('#boot').classList.add('hide'),2100);
+addEventListener('scroll',()=>{$('header').classList.toggle('scrolled',scrollY>20);$('.progress').style.height=(scrollY/(document.body.scrollHeight-innerHeight)*100)+'%'});
+$('#menu').onclick=()=>{$('nav').classList.toggle('open')};$$('nav a').forEach(a=>a.onclick=()=>$('nav').classList.remove('open'));
+const words=['DIGITAL EXPERIENCES','FUTURISTIC WEBSITES','DATABASE SYSTEMS','CREATIVE CODE'];let wi=0,i=0,back=false;
+function type(){let w=words[wi];$('#typing').textContent=back?w.slice(0,i--):w.slice(0,i++);if(!back&&i>w.length){back=true;return setTimeout(type,850)}if(back&&i<0){back=false;wi=(wi+1)%words.length;i=0}setTimeout(type,back?35:65)}setTimeout(type,500);
+$$('.filters button').forEach(btn=>btn.onclick=()=>{$$('.filters button').forEach(x=>x.classList.remove('active'));btn.classList.add('active');let f=btn.dataset.filter;$$('.project').forEach(p=>p.classList.toggle('hidden',f!=='all'&&!p.dataset.cat.includes(f)))});
+const canvas=$('#stars'),ctx=canvas.getContext('2d');let stars=[];function resize(){canvas.width=innerWidth;canvas.height=innerHeight}resize();addEventListener('resize',resize);for(let n=0;n<100;n++)stars.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.2,v:Math.random()*.3+.03});function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);ctx.fillStyle='#8ff8ff55';stars.forEach(s=>{s.y+=s.v;if(s.y>innerHeight)s.y=0;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,7);ctx.fill()});requestAnimationFrame(draw)}draw();
